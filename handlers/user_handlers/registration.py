@@ -193,7 +193,7 @@ async def confirm_profile(message: Message, state: FSMContext):
         return
 
     await message.answer("Сколько тебе лет?", reply_markup=ReplyKeyboardRemove())
-    await state.set_state(NewUserProfile.age)
+    await state.clear()
 
 
 @router.message(NewUserProfile.media)
