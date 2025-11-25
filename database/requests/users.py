@@ -6,23 +6,40 @@ from database.db import async_session
 
 async def create_dislike(tg_id: int, to_user_tg_id: int):
     async with async_session() as session:
-        new = Dislike(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
-        session.add(new)
-        await session.commit()
+        exists = await session.scalar(
+            select(Dislike).where(
+                Dislike.tg_id == tg_id, Dislike.to_user_tg_id == to_user_tg_id
+            )
+        )
+
+        if not exists:
+            new = Dislike(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
+            session.add(new)
+            await session.commit()
 
 
 async def create_like(tg_id: int, to_user_tg_id: int):
     async with async_session() as session:
-        new = Like(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
-        session.add(new)
-        await session.commit()
+        exists = await session.scalar(
+            select(Like).where(Like.tg_id == tg_id, Like.to_user_tg_id == to_user_tg_id)
+        )
+
+        if not exists:
+            new = Like(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
+            session.add(new)
+            await session.commit()
 
 
 async def create_match(tg_id: int, to_user_tg_id: int):
     async with async_session() as session:
-        new = Match(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
-        session.add(new)
-        await session.commit()
+        exists = await session.scalar(
+            select(Like).where(Like.tg_id == tg_id, Like.to_user_tg_id == to_user_tg_id)
+        )
+
+        if not exists:
+            new = Match(tg_id=tg_id, to_user_tg_id=to_user_tg_id)
+            session.add(new)
+            await session.commit()
 
 
 async def create_message(
