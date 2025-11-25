@@ -186,6 +186,7 @@ async def finish_media_registration(message: Message, state: FSMContext):
 
 @router.message(NewUserProfile.confirm_profile)
 async def confirm_profile(message: Message, state: FSMContext):
+    await state.clear()
     if message.text == "Да":
         from handlers.user_handlers.search import search
 
@@ -193,7 +194,7 @@ async def confirm_profile(message: Message, state: FSMContext):
         return
 
     await message.answer("Сколько тебе лет?", reply_markup=ReplyKeyboardRemove())
-    await state.clear()
+    await state.set_state(NewUserProfile.age)
 
 
 @router.message(NewUserProfile.media)
