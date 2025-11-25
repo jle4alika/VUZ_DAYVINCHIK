@@ -1,0 +1,11 @@
+aiogram
+pyrogram
+pydantic
+pydantic-settings
+python-dotenv
+sqlalchemy
+aiosqlite
+apscheduler
+black[d]
+geopy
+haversine
