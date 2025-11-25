@@ -30,7 +30,7 @@ class States(StatesGroup):
 
 
 @router.message(States.action, F.text == "❤️")
-async def like_my_like(message: Message, state: FSMContext):
+async def like_my_like(message: Message, state: FSMContext, bot: Bot):
     data = await state.get_data()
     questionnaires = data.get("questionnaires")
     questionnaire = data.get("questionnaire")
@@ -40,6 +40,7 @@ async def like_my_like(message: Message, state: FSMContext):
 
     await users.create_like(message.from_user.id, questionnaire)
     await users.like_checked(questionnaire, message.from_user.id)
+    await bot.send_message(questionnaire, "Вас лайкнули! Скорее смотри кто это")
     link = f'<a href="https://t.me/{like_user.username}?text=Привет! Я с Друзья СурГУ ✨">{like_user.name}</a>'
 
     await message.answer(
