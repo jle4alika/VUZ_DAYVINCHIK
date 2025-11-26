@@ -20,7 +20,6 @@ async def start(message: Message, state: FSMContext):
         return
 
     user = await users.get_user(message.from_user.id)
-    print(user.__dict__)
     if not user:
         await users.get_or_create_user(message.from_user.id, message.from_user.username)
         await message.answer(
