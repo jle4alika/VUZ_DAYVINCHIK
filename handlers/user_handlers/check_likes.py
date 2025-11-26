@@ -39,7 +39,7 @@ async def my_likes(message: Message, state: FSMContext):
     index = 0
     await state.update_data(likes=likes, like=like, index=index)
 
-    if len(likes) > index:
+    if len(likes) <= index:
         index += 1
 
         like = likes[index]
@@ -92,7 +92,7 @@ async def like_my_like(message: Message, state: FSMContext):
     )
     await asyncio.sleep(2)
 
-    if len(likes) > index:
+    if len(likes) <= index:
         index += 1
         like = likes[index]
         await state.update_data(like=like, index=index)
@@ -131,7 +131,7 @@ async def dislike_my_like(message: Message, state: FSMContext):
 
     await users.create_dislike(message.from_user.id, like)
 
-    if len(likes) > index:
+    if len(likes) <= index:
         index += 1
         like = likes[index]
         await state.update_data(like=like, index=index)

@@ -54,7 +54,7 @@ async def like_my_like(message: Message, state: FSMContext, bot: Bot):
     )
     await asyncio.sleep(2)
 
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
         questionnaire = questionnaires[index]
         await state.update_data(questionnaire=questionnaire, index=index)
@@ -95,7 +95,7 @@ async def dislike_my_like(message: Message, state: FSMContext):
 
     await users.create_dislike(message.from_user.id, questionnaire)
 
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
         questionnaire = questionnaires[index]
         await state.update_data(questionnaire=questionnaire, index=index)
@@ -213,7 +213,7 @@ async def questionnaire(message: Message, state: FSMContext, bot: Bot):
 
     await users.create_like(message.from_user.id, questionnaire)
 
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
 
         questionnaire = questionnaires[index]
@@ -265,7 +265,7 @@ async def new_message(message: Message, state: FSMContext):
 
     if message.text != "Вернуться назад":
         await users.create_message(message.from_user.id, questionnaire, message.text)
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
 
         questionnaire = questionnaires[index]
@@ -312,7 +312,7 @@ async def reg_media(message: Message, state: FSMContext, bot: Bot):
         await users.create_message(message.from_user.id, questionnaire, "", file_path)
         await users.create_like(message.from_user.id, questionnaire)
 
-        if len(questionnaires) >= index + 1:
+        if len(questionnaires) <= index:
             index += 1
             questionnaire = questionnaires[index]
             await state.update_data(questionnaire=questionnaire, index=index)
@@ -355,7 +355,7 @@ async def dislike(message: Message, state: FSMContext):
 
     await users.create_dislike(message.from_user.id, questionnaire)
 
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
 
         questionnaire = questionnaires[index]
@@ -407,7 +407,7 @@ async def my_likes(message: Message, state: FSMContext):
         questionnaires=questionnaires, questionnaire=questionnaire, index=index
     )
 
-    if len(questionnaires) >= index + 1:
+    if len(questionnaires) <= index:
         index += 1
 
         questionnaire = questionnaires[index]
