@@ -39,7 +39,7 @@ async def my_likes(message: Message, state: FSMContext):
     index = 0
     await state.update_data(likes=likes, like=like, index=index)
 
-    if len(likes) - 1 >= index:
+    if len(likes) > index:
         index += 1
 
         like = likes[index]
@@ -80,7 +80,7 @@ async def like_my_like(message: Message, state: FSMContext):
 
     await users.create_like(message.from_user.id, like)
     await users.like_checked(like, message.from_user.id)
-    await users.like_checked(message.from_user.id, like)
+
     link = f'<a href="https://t.me/{like_user.username}?text="Привет! Я с Друзья СурГУ ✨"">{like_user.name}</a>'
 
     print(link)
@@ -92,7 +92,7 @@ async def like_my_like(message: Message, state: FSMContext):
     )
     await asyncio.sleep(2)
 
-    if len(likes) - 1 >= index:
+    if len(likes) > index:
         index += 1
         like = likes[index]
         await state.update_data(like=like, index=index)
@@ -131,7 +131,7 @@ async def dislike_my_like(message: Message, state: FSMContext):
 
     await users.create_dislike(message.from_user.id, like)
 
-    if len(likes) - 1 >= index:
+    if len(likes) > index:
         index += 1
         like = likes[index]
         await state.update_data(like=like, index=index)

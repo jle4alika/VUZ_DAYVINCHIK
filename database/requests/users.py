@@ -182,7 +182,10 @@ async def get_user_unchecked_likes(tg_id: int) -> list[int]:
             select(Like.tg_id).where(Like.to_user_tg_id == tg_id, Like.checked == False)
         )
         result = query.fetchall()
-        return result
+
+        dislikes = await get_user_dislikes(tg_id)
+
+        return [user for user in result if user not in dislikes]
 
 
 async def like_checked(tg_id: int, to_user_tg_id: int):
