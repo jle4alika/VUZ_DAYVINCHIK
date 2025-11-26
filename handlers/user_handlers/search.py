@@ -175,7 +175,9 @@ async def search(message: Message, state: FSMContext):
     if questionnaires:
         questionnaire = questionnaires[-1]
         await state.update_data(
-            questionnaires=questionnaires, questionnaire=questionnaire, index=0
+            questionnaires=questionnaires,
+            questionnaire=questionnaire,
+            index=len(questionnaires) - 1,
         )
 
         await message.answer("✨🔍", reply_markup=kbr.search)
